@@ -1,5 +1,6 @@
 using System.Linq.Expressions;
 using merchant_api.Data.Models.Concretes;
+using merchant_api.Data.Models.Concretes.Inventory;
 using merchant_api.Data.Repositories.Interfaces;
 
 namespace merchant_api.Data.Repositories.Utils;

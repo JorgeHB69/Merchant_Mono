@@ -1,5 +1,6 @@
-using merchant_api.Business.Dtos.ProductVariants;
+using merchant_api.Business.Dtos.Inventory.ProductVariants;
 using merchant_api.Data.Models.Concretes;
+using merchant_api.Data.Models.Concretes.Inventory;
 using merchant_api.Data.Repositories.Interfaces;
 
 namespace merchant_api.Business.Services;

@@ -1,7 +1,8 @@
 using System.Text.Json;
-using merchant_api.Business.Dtos.OrderItems;
-using merchant_api.Business.Dtos.ProductVariants;
+using merchant_api.Business.Dtos.Inventory.OrderItems;
+using merchant_api.Business.Dtos.Inventory.ProductVariants;
 using merchant_api.Data.Repositories.Interfaces;
+using merchant_api.Data.Repositories.Interfaces.Inventory;
 
 namespace merchant_api.Business.Services;
 

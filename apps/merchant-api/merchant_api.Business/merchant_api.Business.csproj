@@ -29,4 +29,12 @@
   <ProjectReference Include="..\merchant_api.Data\merchant_api.Data.csproj" />
 </ItemGroup>
 
+
+<ItemGroup>
+  <Folder Include="Comparers\Inventory\" />
+  <Folder Include="Dtos\Inventory\" />
+  <Folder Include="QueryCommands\Inventory\" />
+  <Folder Include="Validators\Inventory\" />
+</ItemGroup>
+
 </Project>

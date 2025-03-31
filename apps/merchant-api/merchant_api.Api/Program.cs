@@ -1,6 +1,7 @@
 using DotNetEnv;
 using merchant_api.Business;
 using merchant_api.Business.ValidatorSettings;
+using merchant_api.Business.ValidatorSettings.Inventory;
 using merchant_api.Data.Data;
 using Microsoft.EntityFrameworkCore;
 

@@ -1,8 +1,9 @@
 ﻿using AutoMapper;
-using merchant_api.Business.Dtos.Images;
-using merchant_api.Business.Dtos.Products;
-using merchant_api.Business.Dtos.ProductVariants;
+using merchant_api.Business.Dtos.Inventory.Images;
+using merchant_api.Business.Dtos.Inventory.Products;
+using merchant_api.Business.Dtos.Inventory.ProductVariants;
 using merchant_api.Data.Models.Concretes;
+using merchant_api.Data.Models.Concretes.Inventory;
 
 namespace merchant_api.Business.Profiles;
 
