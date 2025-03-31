@@ -1,0 +1,26 @@
+using merchant_api.Data.Models.Concretes;
+using merchant_api.Data.Models.Concretes.Inventory;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
+namespace merchant_api.Data.Maps.Inventory;
+
+public class ProductAttributeMap : IEntityTypeConfiguration<ProductAttribute>
+{
+    public void Configure(EntityTypeBuilder<ProductAttribute> builder)
+    {
+        builder.ToTable("ProductAttribute");
+        builder.HasIndex(pa => pa.Id);
+        builder.Property(pa => pa.Id).ValueGeneratedOnAdd();
+        builder.Property(p => p.Value).IsRequired();
+        builder.Property(pa => pa.Value).IsRequired();
+        
+        builder.HasOne(pa => pa.ProductVariant)
+            .WithMany(pv => pv.Attributes)
+            .HasForeignKey(pa => pa.ProductVariantId);
+        
+        builder.HasOne(pa => pa.Variant)
+            .WithMany(v => v.ProductAttributes)
+            .HasForeignKey(pa => pa.VariantId);
+    }
+}
