@@ -37,7 +37,7 @@ namespace merchant_api.Api.Migrations
                     b.ToTable("CategoryProduct");
                 });
 
-            modelBuilder.Entity("merchant_api.Data.Models.Concretes.Category", b =>
+            modelBuilder.Entity("merchant_api.Data.Models.Concretes.Inventory.Category", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -71,7 +71,7 @@ namespace merchant_api.Api.Migrations
                     b.ToTable("Category", (string)null);
                 });
 
-            modelBuilder.Entity("merchant_api.Data.Models.Concretes.Image", b =>
+            modelBuilder.Entity("merchant_api.Data.Models.Concretes.Inventory.Image", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -109,7 +109,7 @@ namespace merchant_api.Api.Migrations
                     b.ToTable("Image", (string)null);
                 });
 
-            modelBuilder.Entity("merchant_api.Data.Models.Concretes.Product", b =>
+            modelBuilder.Entity("merchant_api.Data.Models.Concretes.Inventory.Product", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -155,7 +155,7 @@ namespace merchant_api.Api.Migrations
                     b.ToTable("Product", (string)null);
                 });
 
-            modelBuilder.Entity("merchant_api.Data.Models.Concretes.ProductAttribute", b =>
+            modelBuilder.Entity("merchant_api.Data.Models.Concretes.Inventory.ProductAttribute", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -194,7 +194,7 @@ namespace merchant_api.Api.Migrations
                     b.ToTable("ProductAttribute", (string)null);
                 });
 
-            modelBuilder.Entity("merchant_api.Data.Models.Concretes.ProductVariant", b =>
+            modelBuilder.Entity("merchant_api.Data.Models.Concretes.Inventory.ProductVariant", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -234,7 +234,7 @@ namespace merchant_api.Api.Migrations
                     b.ToTable("ProductVariant", (string)null);
                 });
 
-            modelBuilder.Entity("merchant_api.Data.Models.Concretes.Variant", b =>
+            modelBuilder.Entity("merchant_api.Data.Models.Concretes.Inventory.Variant", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -262,7 +262,7 @@ namespace merchant_api.Api.Migrations
                     b.ToTable("Variant", (string)null);
                 });
 
-            modelBuilder.Entity("merchant_api.Data.Models.Concretes.WishList", b =>
+            modelBuilder.Entity("merchant_api.Data.Models.Concretes.Inventory.WishList", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -293,48 +293,225 @@ namespace merchant_api.Api.Migrations
                     b.ToTable("WishLists", (string)null);
                 });
 
+            modelBuilder.Entity("merchant_api.Data.Models.Concretes.Users.ContactUsMessage", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Message")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Id");
+
+                    b.ToTable("ContactUsMessage", (string)null);
+                });
+
+            modelBuilder.Entity("merchant_api.Data.Models.Concretes.Users.Store", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("BannerImage")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean");
+
+                    b.Property<int>("LowStockThreshold")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("ProfileImage")
+                        .HasColumnType("text");
+
+                    b.Property<string>("SellerIds")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
+                    b.ToTable("Store", (string)null);
+                });
+
+            modelBuilder.Entity("merchant_api.Data.Models.Concretes.Users.User", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("IdentityId")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("UserType")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Id");
+
+                    b.ToTable("User", (string)null);
+                });
+
+            modelBuilder.Entity("merchant_api.Data.Models.Concretes.Users.UserAddress", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Country")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
+                    b.ToTable("UserAddress", (string)null);
+                });
+
             modelBuilder.Entity("CategoryProduct", b =>
                 {
-                    b.HasOne("merchant_api.Data.Models.Concretes.Category", null)
+                    b.HasOne("merchant_api.Data.Models.Concretes.Inventory.Category", null)
                         .WithMany()
                         .HasForeignKey("CategoriesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("merchant_api.Data.Models.Concretes.Product", null)
+                    b.HasOne("merchant_api.Data.Models.Concretes.Inventory.Product", null)
                         .WithMany()
                         .HasForeignKey("ProductsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("merchant_api.Data.Models.Concretes.Category", b =>
+            modelBuilder.Entity("merchant_api.Data.Models.Concretes.Inventory.Category", b =>
                 {
-                    b.HasOne("merchant_api.Data.Models.Concretes.Category", "ParentCategory")
+                    b.HasOne("merchant_api.Data.Models.Concretes.Inventory.Category", "ParentCategory")
                         .WithMany("SubCategories")
                         .HasForeignKey("ParentCategoryId");
 
                     b.Navigation("ParentCategory");
                 });
 
-            modelBuilder.Entity("merchant_api.Data.Models.Concretes.Image", b =>
+            modelBuilder.Entity("merchant_api.Data.Models.Concretes.Inventory.Image", b =>
                 {
-                    b.HasOne("merchant_api.Data.Models.Concretes.Product", "Product")
+                    b.HasOne("merchant_api.Data.Models.Concretes.Inventory.Product", "Product")
                         .WithMany("Images")
                         .HasForeignKey("ProductId");
 
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("merchant_api.Data.Models.Concretes.ProductAttribute", b =>
+            modelBuilder.Entity("merchant_api.Data.Models.Concretes.Inventory.ProductAttribute", b =>
                 {
-                    b.HasOne("merchant_api.Data.Models.Concretes.ProductVariant", "ProductVariant")
+                    b.HasOne("merchant_api.Data.Models.Concretes.Inventory.ProductVariant", "ProductVariant")
                         .WithMany("Attributes")
                         .HasForeignKey("ProductVariantId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("merchant_api.Data.Models.Concretes.Variant", "Variant")
+                    b.HasOne("merchant_api.Data.Models.Concretes.Inventory.Variant", "Variant")
                         .WithMany("ProductAttributes")
                         .HasForeignKey("VariantId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -345,13 +522,13 @@ namespace merchant_api.Api.Migrations
                     b.Navigation("Variant");
                 });
 
-            modelBuilder.Entity("merchant_api.Data.Models.Concretes.ProductVariant", b =>
+            modelBuilder.Entity("merchant_api.Data.Models.Concretes.Inventory.ProductVariant", b =>
                 {
-                    b.HasOne("merchant_api.Data.Models.Concretes.Image", "Image")
+                    b.HasOne("merchant_api.Data.Models.Concretes.Inventory.Image", "Image")
                         .WithOne("ProductVariant")
-                        .HasForeignKey("merchant_api.Data.Models.Concretes.ProductVariant", "ImageId");
+                        .HasForeignKey("merchant_api.Data.Models.Concretes.Inventory.ProductVariant", "ImageId");
 
-                    b.HasOne("merchant_api.Data.Models.Concretes.Product", "Product")
+                    b.HasOne("merchant_api.Data.Models.Concretes.Inventory.Product", "Product")
                         .WithMany("ProductVariants")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -362,9 +539,9 @@ namespace merchant_api.Api.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("merchant_api.Data.Models.Concretes.WishList", b =>
+            modelBuilder.Entity("merchant_api.Data.Models.Concretes.Inventory.WishList", b =>
                 {
-                    b.HasOne("merchant_api.Data.Models.Concretes.Product", "Product")
+                    b.HasOne("merchant_api.Data.Models.Concretes.Inventory.Product", "Product")
                         .WithMany("WishList")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -373,17 +550,39 @@ namespace merchant_api.Api.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("merchant_api.Data.Models.Concretes.Category", b =>
+            modelBuilder.Entity("merchant_api.Data.Models.Concretes.Users.Store", b =>
+                {
+                    b.HasOne("merchant_api.Data.Models.Concretes.Users.User", "User")
+                        .WithOne("Store")
+                        .HasForeignKey("merchant_api.Data.Models.Concretes.Users.Store", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("merchant_api.Data.Models.Concretes.Users.UserAddress", b =>
+                {
+                    b.HasOne("merchant_api.Data.Models.Concretes.Users.User", "User")
+                        .WithOne("Address")
+                        .HasForeignKey("merchant_api.Data.Models.Concretes.Users.UserAddress", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("merchant_api.Data.Models.Concretes.Inventory.Category", b =>
                 {
                     b.Navigation("SubCategories");
                 });
 
-            modelBuilder.Entity("merchant_api.Data.Models.Concretes.Image", b =>
+            modelBuilder.Entity("merchant_api.Data.Models.Concretes.Inventory.Image", b =>
                 {
                     b.Navigation("ProductVariant");
                 });
 
-            modelBuilder.Entity("merchant_api.Data.Models.Concretes.Product", b =>
+            modelBuilder.Entity("merchant_api.Data.Models.Concretes.Inventory.Product", b =>
                 {
                     b.Navigation("Images");
 
@@ -392,14 +591,21 @@ namespace merchant_api.Api.Migrations
                     b.Navigation("WishList");
                 });
 
-            modelBuilder.Entity("merchant_api.Data.Models.Concretes.ProductVariant", b =>
+            modelBuilder.Entity("merchant_api.Data.Models.Concretes.Inventory.ProductVariant", b =>
                 {
                     b.Navigation("Attributes");
                 });
 
-            modelBuilder.Entity("merchant_api.Data.Models.Concretes.Variant", b =>
+            modelBuilder.Entity("merchant_api.Data.Models.Concretes.Inventory.Variant", b =>
                 {
                     b.Navigation("ProductAttributes");
+                });
+
+            modelBuilder.Entity("merchant_api.Data.Models.Concretes.Users.User", b =>
+                {
+                    b.Navigation("Address");
+
+                    b.Navigation("Store");
                 });
 #pragma warning restore 612, 618
         }

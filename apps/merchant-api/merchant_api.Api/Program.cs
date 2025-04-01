@@ -1,4 +1,5 @@
 using DotNetEnv;
+using merchant_api.Api;
 using merchant_api.Business;
 using merchant_api.Business.ValidatorSettings;
 using merchant_api.Business.ValidatorSettings.Inventory;
@@ -18,6 +19,7 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.ConfigureSwagger();
 builder.Services.AddSwaggerGen(c =>
 {
     c.CustomSchemaIds(type => type.FullName);

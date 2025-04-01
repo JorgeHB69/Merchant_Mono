@@ -10,6 +10,7 @@ namespace merchant_api.Api.Controllers;
 
 [ApiController]
 [Route("api/inventory/[controller]")]
+[Tags("Inventory")]
 public class ProductController(IMediator mediator) : ControllerBase
 {
     [HttpPost]

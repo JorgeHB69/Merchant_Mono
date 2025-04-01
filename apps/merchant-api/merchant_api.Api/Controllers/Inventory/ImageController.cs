@@ -11,6 +11,7 @@ namespace merchant_api.Api.Controllers;
 
 [ApiController]
 [Route("api/inventory/[controller]")]
+[Tags("Inventory")]
 public class ImageController(IMediator mediator, IResponseHandlingHelper responseHandlingHelper) : ControllerBase
 {
     [HttpPost]

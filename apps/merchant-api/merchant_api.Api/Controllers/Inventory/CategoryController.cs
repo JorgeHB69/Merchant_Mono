@@ -12,6 +12,7 @@ namespace merchant_api.Api.Controllers;
 
 [ApiController]
 [Route("api/inventory/[controller]")]
+[Tags("Inventory")]
 public class CategoryController(IMediator mediator, IResponseHandlingHelper responseHandlingHelper) : ControllerBase
 {
     [HttpPost]
