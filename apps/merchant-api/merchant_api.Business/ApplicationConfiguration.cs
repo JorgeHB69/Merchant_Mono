@@ -1,5 +1,7 @@
 using AutoMapper;
 using FluentValidation;
+using MassTransit;
+using merchant_api.Business.Dtos.ContactUsMessages;
 using merchant_api.Business.Dtos.Inventory.Categories;
 using merchant_api.Business.Dtos.Inventory.Images;
 using merchant_api.Business.Dtos.Inventory.Products;
@@ -7,8 +9,12 @@ using merchant_api.Business.Dtos.Inventory.ProductVariants;
 using merchant_api.Business.Dtos.Inventory.Variants;
 using merchant_api.Business.Dtos.Payment.Orders;
 using merchant_api.Business.Dtos.Payment.PaymentTransactions;
+using merchant_api.Business.Dtos.Stores;
+using merchant_api.Business.Dtos.Users;
 using merchant_api.Business.Profiles;
 using merchant_api.Business.Services;
+using merchant_api.Business.Services.Auth.Concretes;
+using merchant_api.Business.Services.Auth.Interfaces;
 using merchant_api.Business.Services.Payment;
 using merchant_api.Business.Services.Payment.Clients;
 using merchant_api.Business.Validators.Inventory.Categories;
@@ -16,17 +22,21 @@ using merchant_api.Business.Validators.Inventory.Images;
 using merchant_api.Business.Validators.Inventory.Products;
 using merchant_api.Business.Validators.Inventory.ProductVariants;
 using merchant_api.Business.Validators.Inventory.Variants;
+using merchant_api.Business.Validators.Users.ContactUsMessages;
+using merchant_api.Business.Validators.Users.Stores;
+using merchant_api.Business.Validators.Users.Users;
 using merchant_api.Business.Validators.Payment.Orders;
 using merchant_api.Commons.ResponseHandler.Handler.Concretes;
 using merchant_api.Commons.ResponseHandler.Handler.Interfaces;
-using merchant_api.Data.Models.Concretes;
 using merchant_api.Data.Models.Concretes.Inventory;
 using merchant_api.Data.Models.Concretes.Payment;
 using merchant_api.Data.Repositories.Concretes;
 using merchant_api.Data.Repositories.Concretes.Inventory;
+using merchant_api.Data.Repositories.Concretes.Users;
 using merchant_api.Data.Repositories.Concretes.Payment;
 using merchant_api.Data.Repositories.Interfaces;
 using merchant_api.Data.Repositories.Interfaces.Inventory;
+using merchant_api.Data.Repositories.Interfaces.Users;
 using merchant_api.Data.Repositories.Interfaces.Payment;
 using merchant_api.Data.Repositories.Utils;
 using Microsoft.Extensions.DependencyInjection;
@@ -73,6 +83,22 @@ public static class ApplicationConfiguration
         services.AddScoped<IValidator<UpdateProductVariantDto>, UpdateProductVariantValidator>();
         services.AddScoped<IValidator<CreateProductDto>, CreateProductValidator>();
         services.AddScoped<IValidator<UpdateProductDto>, UpdateProductValidator>();
+        services.AddScoped<IValidator<RegisterUserDto>, RegisterUserValidator>();
+        services.AddScoped<IValidator<UpdateUserDto>, UpdateUserDtoValidator>();
+        services.AddScoped<IValidator<StoreDto>, StoreDtoValidator>();
+        services.AddScoped<IValidator<CreateContactUsMessageDto>, CreateContactUsMessageValidator>();
+        
+        services.AddScoped<IStoreRepository, StoreRepository>();
+        services.AddScoped<IUserAddressRepository, UserAddressRepository>();
+        services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
+        services.AddScoped<IContactUsMessageRepository, ContactUsMessagesRepository>();
+        services.AddSingleton<IJwtDecoder, JwtDecoder>();
+        
+        services.AddMassTransit(config =>
+        {
+            config.UsingInMemory((context, cfg) => cfg.ConfigureEndpoints(context));
+        });
         
         //Payment
         services.AddScoped<IOrderRepository, OrderRepository>();

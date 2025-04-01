@@ -293,7 +293,7 @@ namespace merchant_api.Api.Migrations
                     b.ToTable("WishLists", (string)null);
                 });
 
-            modelBuilder.Entity("merchant_api.Data.Models.Concretes.Payment.Order", b =>
+            modelBuilder.Entity("merchant_api.Data.Models.Concretes.Users.ContactUsMessage", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -305,93 +305,16 @@ namespace merchant_api.Api.Migrations
                     b.Property<DateTime?>("DeletedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("boolean");
-
-                    b.Property<int>("OrderNumber")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("OrderNumber"));
-
-                    b.Property<int>("OrderStatus")
-                        .HasColumnType("integer");
-
-                    b.Property<double>("TotalPrice")
-                        .HasColumnType("double precision");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Id");
-
-                    b.ToTable("Order", (string)null);
-                });
-
-            modelBuilder.Entity("merchant_api.Data.Models.Concretes.Payment.OrderItem", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<DateTime?>("DeletedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<int>("DiscountPercent")
-                        .HasColumnType("integer");
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("boolean");
 
-                    b.Property<Guid>("OrderId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("ProductVariantId")
-                        .HasColumnType("uuid");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("integer");
-
-                    b.Property<double>("TotalPrice")
-                        .HasColumnType("double precision");
-
-                    b.Property<double>("UnitPrice")
-                        .HasColumnType("double precision");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Id");
-
-                    b.HasIndex("OrderId");
-
-                    b.ToTable("OrderItem", (string)null);
-                });
-
-            modelBuilder.Entity("merchant_api.Data.Models.Concretes.Payment.PaymentMethod", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<DateTime?>("DeletedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("boolean");
+                    b.Property<string>("Message")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -404,17 +327,123 @@ namespace merchant_api.Api.Migrations
 
                     b.HasIndex("Id");
 
-                    b.ToTable("PaymentMethod", (string)null);
+                    b.ToTable("ContactUsMessage", (string)null);
                 });
 
-            modelBuilder.Entity("merchant_api.Data.Models.Concretes.Payment.PaymentTransaction", b =>
+            modelBuilder.Entity("merchant_api.Data.Models.Concretes.Users.Store", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<double>("Amount")
-                        .HasColumnType("double precision");
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("BannerImage")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean");
+
+                    b.Property<int>("LowStockThreshold")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("ProfileImage")
+                        .HasColumnType("text");
+
+                    b.Property<string>("SellerIds")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
+                    b.ToTable("Store", (string)null);
+                });
+
+            modelBuilder.Entity("merchant_api.Data.Models.Concretes.Users.User", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("IdentityId")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("UserType")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Id");
+
+                    b.ToTable("User", (string)null);
+                });
+
+            modelBuilder.Entity("merchant_api.Data.Models.Concretes.Users.UserAddress", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Country")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
@@ -425,28 +454,20 @@ namespace merchant_api.Api.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("boolean");
 
-                    b.Property<Guid>("OrderId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("PaymentMethodId")
-                        .HasColumnType("uuid");
-
-                    b.Property<int>("TransactionOrderStatus")
-                        .HasColumnType("integer");
-
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
                     b.HasIndex("Id");
 
-                    b.HasIndex("OrderId")
+                    b.HasIndex("UserId")
                         .IsUnique();
 
-                    b.HasIndex("PaymentMethodId");
-
-                    b.ToTable("PaymentTransaction", (string)null);
+                    b.ToTable("UserAddress", (string)null);
                 });
 
             modelBuilder.Entity("CategoryProduct", b =>
@@ -529,34 +550,26 @@ namespace merchant_api.Api.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("merchant_api.Data.Models.Concretes.Payment.OrderItem", b =>
+            modelBuilder.Entity("merchant_api.Data.Models.Concretes.Users.Store", b =>
                 {
-                    b.HasOne("merchant_api.Data.Models.Concretes.Payment.Order", "Order")
-                        .WithMany("OrderItems")
-                        .HasForeignKey("OrderId")
+                    b.HasOne("merchant_api.Data.Models.Concretes.Users.User", "User")
+                        .WithOne("Store")
+                        .HasForeignKey("merchant_api.Data.Models.Concretes.Users.Store", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Order");
+                    b.Navigation("User");
                 });
 
-            modelBuilder.Entity("merchant_api.Data.Models.Concretes.Payment.PaymentTransaction", b =>
+            modelBuilder.Entity("merchant_api.Data.Models.Concretes.Users.UserAddress", b =>
                 {
-                    b.HasOne("merchant_api.Data.Models.Concretes.Payment.Order", "Order")
-                        .WithOne("PaymentTransaction")
-                        .HasForeignKey("merchant_api.Data.Models.Concretes.Payment.PaymentTransaction", "OrderId")
+                    b.HasOne("merchant_api.Data.Models.Concretes.Users.User", "User")
+                        .WithOne("Address")
+                        .HasForeignKey("merchant_api.Data.Models.Concretes.Users.UserAddress", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("merchant_api.Data.Models.Concretes.Payment.PaymentMethod", "PaymentMethod")
-                        .WithMany("PaymentTransactions")
-                        .HasForeignKey("PaymentMethodId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Order");
-
-                    b.Navigation("PaymentMethod");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("merchant_api.Data.Models.Concretes.Inventory.Category", b =>
@@ -588,16 +601,11 @@ namespace merchant_api.Api.Migrations
                     b.Navigation("ProductAttributes");
                 });
 
-            modelBuilder.Entity("merchant_api.Data.Models.Concretes.Payment.Order", b =>
+            modelBuilder.Entity("merchant_api.Data.Models.Concretes.Users.User", b =>
                 {
-                    b.Navigation("OrderItems");
+                    b.Navigation("Address");
 
-                    b.Navigation("PaymentTransaction");
-                });
-
-            modelBuilder.Entity("merchant_api.Data.Models.Concretes.Payment.PaymentMethod", b =>
-                {
-                    b.Navigation("PaymentTransactions");
+                    b.Navigation("Store");
                 });
 #pragma warning restore 612, 618
         }
