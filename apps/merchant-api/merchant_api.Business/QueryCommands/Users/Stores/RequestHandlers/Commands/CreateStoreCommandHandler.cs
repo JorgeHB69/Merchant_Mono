@@ -33,9 +33,6 @@ public class CreateStoreCommandHandler(
 
         var storeExist = await storeRepository.FindAsync((x) => x.UserId == store.UserId);
 
-        if (storeExist.Any())
-            return responseHandlingHelper.BadRequest<StoreDto>("User already has a store");
-
         store = await storeRepository.AddAsync(store);
         user.UserType = UserType.OWNER;
         await userRepository.UpdateAsync(user);
