@@ -1,5 +1,5 @@
 using MediatR;
-using merchant_api.Business.Dtos;
+using merchant_api.Business.Dtos.Payment;
 using merchant_api.Business.Dtos.Payment.Orders;
 using merchant_api.Business.QueryCommands.Payment.Orders.Commands.Commands;
 using merchant_api.Business.QueryCommands.Payment.Orders.Queries.Queries;
@@ -32,7 +32,7 @@ public class OrderController(IMediator mediator) : ControllerBase
         if (result is ErrorResponse errorResponse)
             return StatusCode(errorResponse.StatusCode, errorResponse);
         
-        var successResponse = (SuccessResponse<PaginatedResponseDto<OrderDto>>)result;
+        var successResponse = (SuccessResponse<PaginatedResponsePaymentDto<OrderDto>>)result;
         return StatusCode(successResponse.StatusCode, successResponse);      
     }
     
@@ -60,7 +60,7 @@ public class OrderController(IMediator mediator) : ControllerBase
         if (result is ErrorResponse errorResponse)
             return StatusCode(errorResponse.StatusCode, errorResponse);
         
-        var successResponse = (SuccessResponse<PaginatedResponseDto<OrderWithCompleteDetailsDto>>)result;
+        var successResponse = (SuccessResponse<PaginatedResponsePaymentDto<OrderWithCompleteDetailsDto>>)result;
         return StatusCode(successResponse.StatusCode, successResponse);      
     }
 }

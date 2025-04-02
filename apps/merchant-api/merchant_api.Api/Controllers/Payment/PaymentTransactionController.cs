@@ -1,5 +1,5 @@
 using MediatR;
-using merchant_api.Business.Dtos;
+using merchant_api.Business.Dtos.Payment;
 using merchant_api.Business.Dtos.Payment.PaymentTransactions;
 using merchant_api.Business.QueryCommands.Payment.PaymentTransactions.Commands.Commands;
 using merchant_api.Business.QueryCommands.Payment.PaymentTransactions.Queries.Queries;
@@ -30,7 +30,7 @@ public class PaymentTransactionController(IMediator mediator) : ControllerBase
         if (result is ErrorResponse errorResponse)
             return StatusCode(errorResponse.StatusCode, errorResponse);
         
-        var successResponse = (SuccessResponse<PaginatedResponseDto<PaymentTransactionDto>>)result;
+        var successResponse = (SuccessResponse<PaginatedResponsePaymentDto<PaymentTransactionDto>>)result;
         return StatusCode(successResponse.StatusCode, successResponse);      
     }
 }

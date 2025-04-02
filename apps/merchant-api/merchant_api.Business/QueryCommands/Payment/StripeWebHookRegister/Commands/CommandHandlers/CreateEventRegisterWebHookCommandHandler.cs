@@ -8,6 +8,10 @@ using merchant_api.Business.Services.Payment.Clients;
 using merchant_api.Commons.ResponseHandler.Handler.Interfaces;
 using merchant_api.Commons.ResponseHandler.Responses.Bases;
 using merchant_api.Commons.ResponseHandler.Responses.Concretes;
+using merchant_api.Data.Models.Concretes.Emails;
+using merchant_api.Data.Models.Concretes.Orders;
+using merchant_api.Data.Models.Concretes.Orders.OrderItems;
+using merchant_api.Data.Models.Concretes.Users;
 using merchant_api.Data.Models.Enums.Payment;
 using merchant_api.Data.Repositories.Interfaces;
 using Stripe;
@@ -58,8 +62,6 @@ public class CreateEventRegisterWebHookCommandHandler : IRequestHandler<CreateEv
 
             var transactionResponse = await ProcessPaymentTransaction(session, (SuccessResponse<Guid>)orderResponse);
             if (transactionResponse is ErrorResponse errorTransactionResponse) return errorTransactionResponse;
-            
-            //await PublishOrderEmailEvent(fullSession, (SuccessResponse<Guid>)orderResponse);
             
             return _responseHandlingHelper.Ok("The stripe event was processed", stripeEvent.Id);
         }
@@ -127,54 +129,4 @@ public class CreateEventRegisterWebHookCommandHandler : IRequestHandler<CreateEv
 
         return await _transactionService.CreatePaymentTransaction(paymentTransactionDto);
     }
-    
-    /*private async Task PublishOrderEmailEvent(Session session, SuccessResponse<Guid> orderResponse)
-    {
-        var orderItems = new List<OrderItemWithPrice>();
-
-        foreach (var lineItem in session.LineItems.Data)
-        {
-            var productVariantId = new Guid(lineItem.Price.Product.Metadata.GetValueOrDefault("product_variant_id")!);
-            
-            var variant = await _productClientService.GetProductVariantByIdAsync(productVariantId);
-        
-            if (variant == null)
-            {
-                continue;
-            }
-
-            var unitPrice = (decimal)lineItem.Price.UnitAmount! / 100m;
-            var basePrice = unitPrice - (decimal)variant.PriceAdjustment;
-
-            var orderItem = new OrderItemWithPrice(
-                lineItem.Description ?? "Unknown Item", 
-                (int)lineItem.Quantity!, 
-                unitPrice,
-                new ProductVariantDetails 
-                (
-                    productVariantId,
-                    basePrice,
-                    (decimal)variant.PriceAdjustment,
-                    variant.Attributes.Select(a => new ProductVariantAttribute 
-                        ( a.Name, a.Value)).ToList()
-                )
-            );
-
-            orderItems.Add(orderItem);
-        }
-
-        var orderEmail = new OrderEmail(
-            new Contact(
-                session.CustomerDetails?.Name ?? "Customer", 
-                session.CustomerDetails?.Email ?? string.Empty
-            ), 
-            new OrderNormal(
-                orderResponse.Data.ToString(), 
-                orderItems,
-                (decimal)session.AmountTotal! / 100m
-            )
-        );
-
-        await _producer.Publish(orderEmail);
-    }*/
 }
